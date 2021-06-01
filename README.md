@@ -1,3 +1,6 @@
+# 我的改动
+将 \pysot\utils\statistics.py 中的 @jit(nopython=True) 注释掉
+
 # pysot-toolkit
 The purpose of this repo is to provide evaluation API of Current Single Object Tracking Dataset, including
 

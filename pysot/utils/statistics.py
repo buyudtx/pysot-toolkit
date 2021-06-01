@@ -58,7 +58,7 @@ def calculate_accuracy(pred_trajectory, gt_trajectory,
 
 # def caculate_expected_overlap(pred_trajectorys, gt_trajectorys, skip_init, traj_length=None,
 #         weights=None, tags=['all']):
-#     """ Caculate expected overlap
+#     """ Calculate expected overlap
 #     Args:
 #         pred_trajectory: list of bbox
 #         gt_trajectory: list of bbox
@@ -76,7 +76,7 @@ def calculate_accuracy(pred_trajectory, gt_trajectory,
 #         traj_length = range(1, max([len(x) for x in gt_trajectorys])+1)
 #     traj_length = list(set(traj_length))
 
-@jit(nopython=True)
+# @jit(nopython=True)
 def overlap_ratio(rect1, rect2):
     '''Compute overlap ratio between two rects
     Args
@@ -99,7 +99,7 @@ def overlap_ratio(rect1, rect2):
     iou = np.maximum(np.minimum(1, iou), 0)
     return iou
 
-@jit(nopython=True)
+# @jit(nopython=True)
 def success_overlap(gt_bb, result_bb, n_frame):
     thresholds_overlap = np.arange(0, 1.05, 0.05)
     success = np.zeros(len(thresholds_overlap))
@@ -110,7 +110,7 @@ def success_overlap(gt_bb, result_bb, n_frame):
         success[i] = np.sum(iou > thresholds_overlap[i]) / float(n_frame)
     return success
 
-@jit(nopython=True)
+# @jit(nopython=True)
 def success_error(gt_center, result_center, thresholds, n_frame):
     # n_frame = len(gt_center)
     success = np.zeros(len(thresholds))
@@ -122,7 +122,7 @@ def success_error(gt_center, result_center, thresholds, n_frame):
         success[i] = np.sum(dist <= thresholds[i]) / float(n_frame)
     return success
 
-@jit(nopython=True)
+# @jit(nopython=True)
 def determine_thresholds(scores, resolution=100):
     """
     Args:
@@ -137,7 +137,7 @@ def determine_thresholds(scores, resolution=100):
     thresholds[1:-1] = scores[idxs]
     return thresholds
 
-@jit(nopython=True)
+# @jit(nopython=True)
 def calculate_f1(overlaps, score, bound, thresholds, N):
     overlaps = np.array(overlaps)
     overlaps[np.isnan(overlaps)] = 0
@@ -159,7 +159,7 @@ def calculate_f1(overlaps, score, bound, thresholds, N):
     f1 = 2 * precision * recall / (precision + recall)
     return f1, precision, recall
 
-@jit(nopython=True)
+# @jit(nopython=True)
 def calculate_expected_overlap(fragments, fweights):
     max_len = fragments.shape[1]
     expected_overlaps = np.zeros((max_len), np.float32)
